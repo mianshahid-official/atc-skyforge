@@ -316,6 +316,8 @@ atc-skyforge/
 ├── modal_qwen_tts.py                # Standalone Qwen3 TTS Modal service
 ├── pixabay_downloader.py            # Automated vertical stock video downloader
 ├── render_and_download_all.py       # Modal 2-phase full batch render & download
+├── render_new_scripts.bat           # Double-click script deployer & batch runner (Windows)
+├── render_new_scripts.py            # One-command script replacement & GPU batch renderer
 ├── render_unrendered_only.py        # Smart delta batch renderer for missing videos
 ├── requirements.txt                 # Python dependencies
 ├── run.bat                          # Double-click desktop launcher (Windows)
