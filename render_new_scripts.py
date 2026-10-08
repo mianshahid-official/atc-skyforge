@@ -86,28 +86,46 @@ def validate_script_file(file_path: Path) -> List[Dict[str, Any]]:
     return data
 
 
+def ensure_modal_profile():
+    """Ensures that the profile containing atc-assets (e.g. jackharbour799) is active."""
+    try:
+        import modal
+        vol = modal.Volume.from_name(MODAL_VOLUME_NAME)
+        vol.reload()
+    except Exception:
+        try:
+            env = os.environ.copy()
+            env["PYTHONIOENCODING"] = "utf-8"
+            subprocess.run(["modal", "profile", "activate", "jackharbour799"], capture_output=True, text=True, check=True, env=env)
+            print("  ✓ Switched Modal active profile to 'jackharbour799'")
+        except Exception:
+            pass
+
+
 def upload_scripts_to_modal(local_path: Path) -> bool:
     """Uploads the scripts file to Modal persistent volume at /scripts_emotional.json."""
     print(f"\n[1/3] Uploading '{local_path.name}' to Modal volume '{MODAL_VOLUME_NAME}'...")
 
-    # Method 1: Try modal CLI
-    try:
-        cmd = ["modal", "volume", "put", "-f", MODAL_VOLUME_NAME, str(local_path), MODAL_REMOTE_SCRIPT_PATH]
-        res = subprocess.run(cmd, capture_output=True, text=True, check=True)
-        print(f"  ✓ Modal CLI upload successful: {local_path.name} -> {MODAL_REMOTE_SCRIPT_PATH}")
-        return True
-    except Exception as e:
-        print(f"  [Notice] Modal CLI upload attempt failed ({e}). Trying Modal Python SDK...")
+    ensure_modal_profile()
 
-    # Method 2: Fallback to Modal Python SDK
+    # Method 1: Modal Python SDK using batch_upload (recommended & reliable)
     try:
         import modal
         vol = modal.Volume.from_name(MODAL_VOLUME_NAME)
-        with open(local_path, "rb") as f:
-            content = f.read()
-        vol.write_file(MODAL_REMOTE_SCRIPT_PATH, content)
-        vol.commit()
-        print(f"  ✓ Modal Python SDK upload successful: {len(content)} bytes committed.")
+        with vol.batch_upload(force=True) as batch:
+            batch.put_file(str(local_path), MODAL_REMOTE_SCRIPT_PATH)
+        print(f"  ✓ Modal Volume upload successful: {local_path.name} -> {MODAL_REMOTE_SCRIPT_PATH}")
+        return True
+    except Exception as e:
+        print(f"  [Notice] Python SDK upload note: {e}. Trying Modal CLI...")
+
+    # Method 2: Fallback to Modal CLI with UTF-8 encoding
+    try:
+        env = os.environ.copy()
+        env["PYTHONIOENCODING"] = "utf-8"
+        cmd = ["modal", "volume", "put", "-f", MODAL_VOLUME_NAME, str(local_path), MODAL_REMOTE_SCRIPT_PATH]
+        subprocess.run(cmd, capture_output=True, text=True, check=True, env=env)
+        print(f"  ✓ Modal CLI upload successful: {local_path.name} -> {MODAL_REMOTE_SCRIPT_PATH}")
         return True
     except Exception as e2:
         print(f"  ❌ Failed to upload scripts to Modal volume: {e2}")
