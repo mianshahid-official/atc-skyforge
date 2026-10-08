@@ -65,17 +65,27 @@ USEFUL OPTIONS:
     python render_unrendered_only.py --url https://<your-workspace>--atc-video-generator-api.modal.run
 
 --------------------------------------------------------------------------------
-4. HOW TO UPDATE SCRIPTS & RE-RENDER
+4. HOW TO UPDATE SCRIPTS & RE-RENDER IN ONE STEP
 --------------------------------------------------------------------------------
-Whenever you want to update dialogue scripts:
+Whenever you have a new JSON scripts file (e.g. scripts_201_300.json):
 
-Step 1: Edit or replace your local file:
-    scripts_emotional.json
+METHOD A: ONE-COMMAND AUTOMATION (RECOMMENDED)
+Run `render_new_scripts.py` giving it the name of your file and batch size X:
 
-Step 2: Upload new scripts to Modal volume (using -f to overwrite):
-    modal volume put -f atc-assets scripts_emotional.json /scripts_emotional.json
+    python render_new_scripts.py scripts_201_300.json --batch-size 10
 
-Step 3: Trigger batch rendering:
+Or simply double-click `render_new_scripts.bat` and select your file!
+This will automatically:
+1. Validate the local script structure.
+2. Replace `/scripts_emotional.json` on the Modal cloud volume.
+3. Render all new videos on warm T4 GPU in batches of X without container sleep.
+4. Download finished MP4s directly into `rendered_videos/`.
+
+METHOD B: MANUAL STEP-BY-STEP
+Step 1: Replace file on Modal volume:
+    modal volume put -f atc-assets <your_file.json> /scripts_emotional.json
+
+Step 2: Trigger batch rendering:
     python render_unrendered_only.py --batch-size 10
 
 --------------------------------------------------------------------------------

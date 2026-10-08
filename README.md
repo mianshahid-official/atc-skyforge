@@ -225,6 +225,21 @@ python render_unrendered_only.py --dry-run
 python render_unrendered_only.py --url https://<your-workspace>--atc-video-generator-api.modal.run
 ```
 
+### 6. One-Command Script Replacement & Batch Render
+Whenever you have a new set of scripts (e.g. `scripts_201_300.json`):
+
+```bash
+# Uploads to Modal cloud volume and renders in warm batches of 10
+python render_new_scripts.py scripts_201_300.json --batch-size 10
+```
+*(Or double-click `render_new_scripts.bat` on Windows for interactive selection!)*
+
+This automatically:
+1. Validates the local JSON script schema.
+2. Replaces `/scripts_emotional.json` on the Modal persistent volume.
+3. Renders all new scripts on warm NVIDIA T4 GPU in batches of X.
+4. Streams and downloads finished 9:16 vertical MP4s into `rendered_videos/`.
+
 ---
 
 ## 📝 Dialogue Script Schema

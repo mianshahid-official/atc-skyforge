@@ -66,7 +66,8 @@ test_*.mp3
 test_*.wav
 
 # User private scripts and working files
-scripts_101_200.json
+scripts_*_*.json
+scripts_emotional_backup*.json
 facebook_reels_titles*.txt
 rendered_scripts/
 
