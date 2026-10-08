@@ -1,0 +1,81 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C & build artifacts
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Sensitive & Secret Files
+api_keys.txt
+*.key
+*.pem
+.local_private/
+user_scripts_backup/
+
+# Heavy Video Assets & Render Outputs (Stored locally or on Modal cloud volume)
+rendered_videos/*
+!rendered_videos/.gitkeep
+plane_videos/*.mp4
+plane_videos/*.mov
+plane_videos/*.avi
+plane_videos/*.webm
+plane_videos/*.mkv
+tower_videos/*.mp4
+tower_videos/*.mov
+tower_videos/*.avi
+tower_videos/*.webm
+tower_videos/*.mkv
+*.mp4
+*.mkv
+*.mov
+
+# Heavy ONNX / TTS Neural Weights (>100MB exceeds GitHub push limits)
+models/kokoro/*.onnx
+models/kokoro/*.bin
+models/kokoro/*.npz
+models/piper/*.onnx
+models/piper/*.onnx.json
+
+# Audio test outputs
+test_*.mp3
+test_*.wav
+
+# User private scripts and working files
+scripts_101_200.json
+facebook_reels_titles*.txt
+rendered_scripts/
+
+# OS / Editor specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*.log

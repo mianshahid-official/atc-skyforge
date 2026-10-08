@@ -1,0 +1,93 @@
+================================================================================
+ATC & PILOT AVIATION VIDEO GENERATOR — MODAL CLOUD INSTRUCTIONS
+================================================================================
+
+This document contains operational procedures for deploying ATC SkyForge on Modal cloud,
+rendering videos on GPU in warm batches, downloading completed MP4s, managing scripts,
+and syncing media assets.
+
+--------------------------------------------------------------------------------
+1. MODAL CLOUD ARCHITECTURE
+--------------------------------------------------------------------------------
+- App Name:       atc-video-generator
+- Default GPU:    NVIDIA T4
+- Persistent Vol: atc-assets (mounted at /assets inside the container)
+- Web API URL:    https://<workspace>--atc-video-generator-api.modal.run
+
+ASSETS STRUCTURE ON MODAL VOLUME (/assets):
+- scripts_emotional.json   -> Conversation dialogue scripts
+- /plane_videos            -> Stock plane/cockpit B-roll clips (9:16 vertical)
+- /tower_videos            -> Stock ATC radar/tower B-roll clips (9:16 vertical)
+- /rendered_videos         -> Output storage for generated master MP4 videos
+- /audio_samples           -> Cockpit ambient bed & tactical Roger beep sound effects
+
+AUDIO & ACOUSTIC FILTER PIPELINE:
+- Pilot Voice:        Kokoro 'am_adam' (calibrated for high-urgency cockpit transmission)
+- Tower Voice:        Kokoro 'am_fenrir' (authoritative ATC ground/tower controller)
+- Radio Acoustics:    VHF 300Hz-3400Hz bandpass filter + microphone dynamic compression
+- Radio Squelch:      Tactical PTT mic click on key-in, dual-tone Roger chirp on key-up
+- Handheld Cam Shake: Realistic 9:16 mobile cockpit camera shake with dynamic tilt
+- Subtitle Engine:    Aviation callsign color-coded badges & synchronized captions
+
+--------------------------------------------------------------------------------
+2. INITIAL DEPLOYMENT & ASSET SETUP
+--------------------------------------------------------------------------------
+Step 1: Install Modal CLI and authenticate:
+    pip install modal
+    modal setup
+
+Step 2: Create the persistent asset volume:
+    modal volume create atc-assets
+
+Step 3: Upload your initial stock assets and scripts:
+    python upload_all_assets.py
+    modal volume put -f atc-assets scripts_emotional.json /scripts_emotional.json
+    modal volume put atc-assets audio_samples/04_background_radio_static.wav /audio_samples/04_background_radio_static.wav
+
+Step 4: Deploy the serverless GPU app:
+    modal deploy modal_app.py
+
+--------------------------------------------------------------------------------
+3. HIGH-EFFICIENCY GPU BATCH RENDERING
+--------------------------------------------------------------------------------
+Render unrendered scripts in warm GPU batches of 10 without container sleep or idle spin-downs:
+
+    python render_unrendered_only.py --batch-size 10
+
+USEFUL OPTIONS:
+- Render only the next 10 scripts and stop:
+    python render_unrendered_only.py --limit 10
+
+- Dry-run preview without triggering renders:
+    python render_unrendered_only.py --dry-run
+
+- Custom Modal API URL:
+    python render_unrendered_only.py --url https://<your-workspace>--atc-video-generator-api.modal.run
+
+--------------------------------------------------------------------------------
+4. HOW TO UPDATE SCRIPTS & RE-RENDER
+--------------------------------------------------------------------------------
+Whenever you want to update dialogue scripts:
+
+Step 1: Edit or replace your local file:
+    scripts_emotional.json
+
+Step 2: Upload new scripts to Modal volume (using -f to overwrite):
+    modal volume put -f atc-assets scripts_emotional.json /scripts_emotional.json
+
+Step 3: Trigger batch rendering:
+    python render_unrendered_only.py --batch-size 10
+
+--------------------------------------------------------------------------------
+5. HOW TO ADD NEW STOCK ASSETS
+--------------------------------------------------------------------------------
+Modal persistent volumes retain all data across runs. Adding new assets will never overwrite
+existing media unless explicitly specified:
+
+Method A (Automatic smart sync):
+Add new clips to `plane_videos/` or `tower_videos/` and run:
+    python upload_all_assets.py
+
+Method B (Manual CLI upload):
+    modal volume put atc-assets plane_videos/plane_25.mp4 /plane_videos/plane_25.mp4
+    modal volume put atc-assets tower_videos/tower_35.mp4 /tower_videos/tower_35.mp4

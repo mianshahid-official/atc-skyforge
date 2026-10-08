@@ -1,0 +1,147 @@
+[
+  {
+    "title": "01_dual_engine_flameout_river_landing",
+    "dialogue": [
+      {
+        "speaker": "Pilot",
+        "text": "Mayday, Mayday, Mayday! SkyForge 415, both engines have flamed out after bird strike at eight thousand feet!"
+      },
+      {
+        "speaker": "Tower",
+        "text": "SkyForge 415, Tower roger Mayday, squawk 7700. Wind calm, all runways available, turn heading two seven zero immediately."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "We are attempting APU restart, airspeed two hundred knots, descending rapidly through five thousand, heading two seven zero."
+      },
+      {
+        "speaker": "Tower",
+        "text": "SkyForge 415, radar contact four miles east. Runway two eight Right is completely cleared, emergency vehicles dispatched."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "Tower, restart failed on both spools. We cannot maintain altitude to reach the threshold, we are ditching in the Hudson River."
+      },
+      {
+        "speaker": "Tower",
+        "text": "SkyForge 415, copy ditching, Coast Guard and harbor police alerted. We have eyes on you, godspeed."
+      }
+    ]
+  },
+  {
+    "title": "02_cabin_rapid_depressurization_descent",
+    "dialogue": [
+      {
+        "speaker": "Pilot",
+        "text": "Mayday, Mayday, Mayday! AeroStar 304, rapid cabin depressurization, initiating emergency dive to ten thousand feet!"
+      },
+      {
+        "speaker": "Tower",
+        "text": "AeroStar 304, Tower roger emergency descent, airspace underneath is cleared. Turn left heading one eight zero."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "Speed brakes extended, diving through flight level two zero zero, passenger oxygen masks deployed, First Officer has controls."
+      },
+      {
+        "speaker": "Tower",
+        "text": "AeroStar 304, altimeter two niner niner two, wind zero niner zero at eight, runway one six Left ready for straight-in arrival."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "Leveling at ten thousand feet, cabin pressure stabilized, oxygen systems nominal. Direct to airport, AeroStar 304."
+      },
+      {
+        "speaker": "Tower",
+        "text": "AeroStar 304, cleared straight-in approach runway one six Left, emergency services on standby at taxiway Charlie."
+      }
+    ]
+  },
+  {
+    "title": "03_cargo_smoke_and_battery_fire",
+    "dialogue": [
+      {
+        "speaker": "Pilot",
+        "text": "Tower, CargoExpress 88 heavy, declaring emergency, main deck cargo smoke detector illuminated, discharge bottles fired."
+      },
+      {
+        "speaker": "Tower",
+        "text": "CargoExpress 88 heavy, copy cargo smoke warning. Maintain present heading, descend to four thousand feet."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "Smoke entering flight deck, donning oxygen masks and goggles. Request immediate vectors for nearest runway."
+      },
+      {
+        "speaker": "Tower",
+        "text": "CargoExpress 88 heavy, turn right heading zero four zero, runway zero four is eight miles out, crash fire trucks rolling."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "Visual with the runway, gear down and locked, CargoExpress 88 heavy."
+      },
+      {
+        "speaker": "Tower",
+        "text": "CargoExpress 88 heavy, cleared to land runway zero four, fire crews will follow you down the roll out."
+      }
+    ]
+  },
+  {
+    "title": "04_severe_microburst_windshear_go_around",
+    "dialogue": [
+      {
+        "speaker": "Pilot",
+        "text": "Tower, Pacific 712, windshear warning, maximum thrust set, executing missed approach!"
+      },
+      {
+        "speaker": "Tower",
+        "text": "Pacific 712, Tower rogers windshear go-around, climb and maintain four thousand feet, fly runway heading."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "Airspeed fluctuating plus minus thirty knots on short final, positive rate, gear coming up."
+      },
+      {
+        "speaker": "Tower",
+        "text": "Pacific 712, low level windshear alert system triggered, microburst reported over approach corridor. Turn heading three six zero."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "Turning three six zero, climbing through three thousand, aircraft under control. Requesting holding pattern to evaluate weather."
+      },
+      {
+        "speaker": "Tower",
+        "text": "Pacific 712, hold north of airport at five thousand, expect twenty minute delay for cell to pass."
+      }
+    ]
+  },
+  {
+    "title": "05_hydraulic_failure_manual_gear_gravity_drop",
+    "dialogue": [
+      {
+        "speaker": "Pilot",
+        "text": "Tower, Falcon 90, declaring emergency, total loss of primary hydraulic pressure, alternate manual gear extension in progress."
+      },
+      {
+        "speaker": "Tower",
+        "text": "Falcon 90, Tower copies hydraulic failure. Say number of souls on board and fuel endurance."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "One hundred sixty-two souls on board, three hours fuel. Request flyby at one thousand feet for visual gear check."
+      },
+      {
+        "speaker": "Tower",
+        "text": "Falcon 90, cleared low approach runway two two at one thousand feet, tower binoculars ready."
+      },
+      {
+        "speaker": "Pilot",
+        "text": "Falcon 90 over the numbers now, do you see three green?"
+      },
+      {
+        "speaker": "Tower",
+        "text": "Falcon 90, nose gear and main gear look down and fully locked. Cleared to circle to land runway two two, crash trucks in position."
+      }
+    ]
+  }
+]
